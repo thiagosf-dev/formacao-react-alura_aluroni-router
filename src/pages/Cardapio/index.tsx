@@ -1,7 +1,7 @@
 import 'normalize.css';
 
-import { ReactComponent as Logo } from 'assets/logo.svg';
 import { useState } from 'react';
+import stylesTema from 'styles/Tema.module.scss';
 
 import Buscador from './Buscador';
 import style from './Cardapio.module.scss';
@@ -16,44 +16,32 @@ export default function Cardapio() {
 
   return (
     <>
-      <main>
-        <nav className={style.menu}>
-          <Logo />
-        </nav>
+      <section className={style.cardapio}>
+        <h3 className={stylesTema.titulo}> Cardápio </h3>
 
-        <header className={style.header}>
-          <div className={style.header__text}>
-            A casa do código e da massa
-          </div>
-        </header>
+        <Buscador
+          busca={busca}
+          setBusca={setBusca}
+        />
 
-        <section className={style.cardapio}>
-          <h3 className={style.cardapio__titulo}> Cardápio </h3>
-
-          <Buscador
-            busca={busca}
-            setBusca={setBusca}
-          />
-
-          <div className={style.cardapio__filtros}>
-            <Filtros
-              filtro={filtro}
-              setFiltro={setFiltro}
-            />
-
-            <Ordenador
-              ordenador={ordenador}
-              setOrdenador={setOrdenador}
-            />
-          </div>
-
-          <Itens
-            ordenador={ordenador}
-            busca={busca}
+        <div className={style.cardapio__filtros}>
+          <Filtros
             filtro={filtro}
+            setFiltro={setFiltro}
           />
-        </section>
-      </main>
+
+          <Ordenador
+            ordenador={ordenador}
+            setOrdenador={setOrdenador}
+          />
+        </div>
+
+        <Itens
+          ordenador={ordenador}
+          busca={busca}
+          filtro={filtro}
+        />
+      </section>
     </>
   );
 }

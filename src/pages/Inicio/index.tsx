@@ -1,16 +1,26 @@
+import nossaCasa from 'assets/nossa_casa.png';
 import cardapio from 'data/cardapio.json';
+import { useNavigate } from 'react-router-dom';
+import stylesTema from 'styles/Tema.module.scss';
+import { Prato } from 'Types/Prato';
 
 import styles from './Inicio.module.scss';
 
 export default function Inicio() {
+  const navigate = useNavigate();
+
   let pratosRecomendados = [...cardapio];
 
   pratosRecomendados = pratosRecomendados.sort(() => 0.5 - Math.random()).splice(0, 3);
 
+  function redirecionarParaDetalhes(prato: Prato) {
+    navigate(`/prato/${prato.id}`, { state: { prato } });
+  }
+
   return (
     <>
       <section>
-        <h3 className={styles.titulo}> Recomendações da Cozinha </h3>
+        <h3 className={stylesTema.titulo}> Recomendações da Cozinha </h3>
 
         <div className={styles.recomendados}>
           {
@@ -26,12 +36,29 @@ export default function Inicio() {
                   />
                 </div>
 
-                <button className={styles.recomendado__botao}>
+                <button
+                  className={styles.recomendado__botao}
+                  onClick={() => redirecionarParaDetalhes(item)}
+                >
                   Ver mais
                 </button>
               </div>
             ))
           }
+        </div>
+
+        <h3 className={stylesTema.titulo}> Nossa casa </h3>
+
+        <div className={styles.nossaCasa}>
+          <img
+            src={nossaCasa}
+            alt="Casa do aluroni"
+          />
+
+          <div className={styles.nossaCasa__endereco}>
+            Rua das Ruasitas, 9999 <br /> <br />
+            Vila dos Bairros - SP
+          </div>
         </div>
       </section>
     </>
